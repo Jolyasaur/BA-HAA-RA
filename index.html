@@ -76,32 +76,30 @@
             animation: fadeSlideIn 0.8s ease 0.2s forwards;
         }
 
+        /* Update the portfolio-icons styles */
         .portfolio-icons {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-            margin: 0 auto;
-            gap: 1rem;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
             max-width: 1400px;
+            margin: 0 auto;
             opacity: 0;
             animation: fadeSlideIn 0.8s ease 0.4s forwards;
             position: relative;
             overflow: visible;
         }
 
+        /* Update the icon-card styles */
         .icon-card {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             text-align: center;
-            padding: 1rem 0.8rem;
+            padding: 1.5rem 1rem;
             background: rgba(0, 0, 0, 0.5);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 0 20px;
             border: 2px solid rgba(103, 48, 146, 0.4);
             display: flex;
             flex-direction: column;
@@ -115,6 +113,7 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform-style: preserve-3d;
+            margin: 0 auto; /* Center cards in grid cells */
         }
 
         .icon-card:hover {
@@ -1647,6 +1646,211 @@
                 gap: 0.4rem;
             }
         }
+
+        /* Add responsive adjustments */
+        @media (max-width: 1200px) {
+            .portfolio-icons {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .icon-card {
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-icons {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .icon-card {
+                width: 120px;
+                height: 120px;
+                padding: 1rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-icons {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 0.8rem;
+            }
+
+            .icon-card {
+                width: 100px;
+                height: 100px;
+                padding: 0.8rem 0.6rem;
+            }
+
+            .icon-card i {
+                font-size: 1.5rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .icon-card h3 {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Update the services-belt-container and services-belt styles */
+        .services-belt-container {
+            overflow: hidden;
+            width: 100%;
+            padding: 2rem 0;
+            background: rgba(103, 48, 146, 0.1);
+            border-radius: 15px;
+        }
+
+        .services-belt {
+            display: flex;
+            animation: beltScroll 20s linear infinite;
+            padding: 2rem;
+            gap: 4rem;
+        }
+
+        .services-belt:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes beltScroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-200%);
+            }
+        }
+
+        /* Update the service-item styles */
+        .service-item {
+            min-width: 400px;
+            padding: 2rem;
+            background: rgba(103, 48, 146, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(103, 48, 146, 0.3);
+            transition: all 0.3s ease;
+            text-align: justify;
+        }
+
+        .service-item h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            text-align: left;
+        }
+
+        .service-item p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+            text-align: justify;
+        }
+
+        .service-item ul {
+            font-size: 0.95rem;
+            text-align: left;
+            padding-left: 1.2rem;
+            list-style-type: none;
+        }
+
+        .service-item ul li {
+            margin-bottom: 0.4rem;
+            position: relative;
+        }
+
+        .service-item ul li:before {
+            content: '•';
+            position: absolute;
+            left: -1rem;
+            color: rgba(103, 48, 146, 1);
+        }
+
+        /* Update mobile responsiveness */
+        @media (max-width: 768px) {
+            .services-belt-container {
+                padding: 1rem 0;
+            }
+
+            .services-belt {
+                animation: beltScroll 15s linear infinite;
+                padding: 1rem;
+                gap: 1.5rem;
+            }
+
+            .service-item {
+                min-width: 280px;
+                padding: 1.2rem;
+            }
+
+            .service-item h2 {
+                font-size: 1.2rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .service-item p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+                margin-bottom: 0.6rem;
+            }
+
+            .service-item ul {
+                font-size: 0.75rem;
+                padding-left: 1rem;
+            }
+
+            .service-item ul li {
+                margin-bottom: 0.3rem;
+            }
+
+            .service-item ul li:before {
+                left: -0.8rem;
+            }
+        }
+
+        /* Extra small screen adjustments */
+        @media (max-width: 480px) {
+            .services-belt-container {
+                padding: 0.8rem 0;
+            }
+
+            .services-belt {
+                padding: 0.8rem;
+                gap: 1rem;
+            }
+
+            .service-item {
+                min-width: 200px;
+                padding: 1rem;
+            }
+
+            .service-item h2 {
+                font-size: 1rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .service-item p {
+                font-size: 0.7rem;
+                line-height: 1.3;
+                margin-bottom: 0.4rem;
+            }
+
+            .service-item ul {
+                font-size: 0.7rem;
+                padding-left: 0.8rem;
+            }
+
+            .service-item ul li {
+                margin-bottom: 0.2rem;
+            }
+
+            .service-item ul li:before {
+                left: -0.6rem;
+            }
+        }
     </style>
 </head>
 <body class="text-center">
@@ -1656,6 +1860,7 @@
             <a href="#team" class="nav-link" onclick="showSection('team')">Team</a>
             <a href="#goals" class="nav-link" onclick="showSection('goals')">Goals</a>
             <a href="#journey" class="nav-link" onclick="showSection('journey')">Journey</a>
+            <a href="#services" class="nav-link" onclick="showSection('services')">Services</a>
         </div>
         <button class="mobile-nav-toggle">
             <i class="fas fa-bars"></i>
@@ -1666,6 +1871,7 @@
                 <a href="#team" class="mobile-nav-link" onclick="showSectionMobile('team')">Team</a>
                 <a href="#goals" class="mobile-nav-link" onclick="showSectionMobile('goals')">Goals</a>
                 <a href="#journey" class="mobile-nav-link" onclick="showSectionMobile('journey')">Journey</a>
+                <a href="#services" class="mobile-nav-link" onclick="showSectionMobile('services')">Services</a>
             </div>
         </div>
     </nav>
@@ -1710,6 +1916,12 @@
             <div class="icon-card" onclick="showSection('meals')">
                 <i class="fas fa-utensils"></i>
                 <h3>Meals</h3>
+            </div>
+
+            <!-- Hotels -->
+            <div class="icon-card" onclick="showSection('hotels')">
+                <i class="fas fa-hotel"></i>
+                <h3>Hotels</h3>
             </div>
 
             <!-- Videos -->
@@ -1975,17 +2187,126 @@
         <div class="page-content">
             <h1 class="section-title">Saudi Games</h1>
             <div class="gallery-grid">
-                <!-- Add your games images here -->
+                <div class="gallery-item" onclick="openLightbox('games/1.jpg')">
+                    <img src="games/1.jpg" alt="Saudi Games 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('games/2.jpg')">
+                    <img src="games/2.jpg" alt="Saudi Games 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('games/3.jpg')">
+                    <img src="games/3.jpg" alt="Saudi Games 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('games/4.jpg')">
+                    <img src="games/4.jpg" alt="Saudi Games 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('games/5.jpg')">
+                    <img src="games/5.jpg" alt="Saudi Games 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('games/6.jpg')">
+                    <img src="games/6.jpg" alt="Saudi Games 6">
+                </div>
             </div>
         </div>
     </section>
 
     <section id="grintafy-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('grintafy')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Grintafy</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('grintafy/1.jpg')">
+                    <img src="grintafy/1.jpg" alt="Grintafy 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/2.jpg')">
+                    <img src="grintafy/2.jpg" alt="Grintafy 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/3.jpg')">
+                    <img src="grintafy/3.jpg" alt="Grintafy 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/4.jpg')">
+                    <img src="grintafy/4.jpg" alt="Grintafy 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/5.jpg')">
+                    <img src="grintafy/5.jpg" alt="Grintafy 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/6.jpg')">
+                    <img src="grintafy/6.jpg" alt="Grintafy 6">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/7.jpg')">
+                    <img src="grintafy/7.jpg" alt="Grintafy 7">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/8.jpg')">
+                    <img src="grintafy/8.jpg" alt="Grintafy 8">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/9.jpg')">
+                    <img src="grintafy/9.jpg" alt="Grintafy 9">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/10.jpg')">
+                    <img src="grintafy/10.jpg" alt="Grintafy 10">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/11.jpg')">
+                    <img src="grintafy/11.jpg" alt="Grintafy 11">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/12.jpg')">
+                    <img src="grintafy/12.jpg" alt="Grintafy 12">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/13.jpg')">
+                    <img src="grintafy/13.jpg" alt="Grintafy 13">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/14.jpg')">
+                    <img src="grintafy/14.jpg" alt="Grintafy 14">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('grintafy/15.jpg')">
+                    <img src="grintafy/15.jpg" alt="Grintafy 15">
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="perfumes-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('perfumes')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Perfumes</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('perfumes/1.jpg')">
+                    <img src="perfumes/1.jpg" alt="Perfume 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/2.jpg')">
+                    <img src="perfumes/2.jpg" alt="Perfume 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/3.jpg')">
+                    <img src="perfumes/3.jpg" alt="Perfume 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/4.jpg')">
+                    <img src="perfumes/4.jpg" alt="Perfume 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/5.jpg')">
+                    <img src="perfumes/5.jpg" alt="Perfume 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/6.jpg')">
+                    <img src="perfumes/6.jpg" alt="Perfume 6">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/7.jpg')">
+                    <img src="perfumes/7.jpg" alt="Perfume 7">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/8.jpg')">
+                    <img src="perfumes/8.jpg" alt="Perfume 8">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/9.jpg')">
+                    <img src="perfumes/9.jpg" alt="Perfume 9">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/10.jpg')">
+                    <img src="perfumes/10.jpg" alt="Perfume 10">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('perfumes/11.jpg')">
+                    <img src="perfumes/11.jpg" alt="Perfume 11">
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="meals-section" class="page-section">
@@ -1993,27 +2314,511 @@
     </section>
 
     <section id="videos-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('videos')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Videos</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847553335-e6c7f8b2c9ff8e0b51e1a5bfb7d3bc6d0f29aa6a8c6a57c23_640x360.jpg" alt="Video 1" onclick="window.open('https://vimeo.com/388890944', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388890944', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388890944', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847553558-2c3f3a5f1c0c7fa6cdcb8c7f4972f0d3c4dce166f42d6f6f9_640x360.jpg" alt="Video 2" onclick="window.open('https://vimeo.com/388891167', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388891167', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388891167', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847554223-1c51b9676b4ccd93c7a0bc0e6b3a8415c6f9e5f3e8f4a1d1f_640x360.jpg" alt="Video 3" onclick="window.open('https://vimeo.com/388891832', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388891832', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388891832', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/823573261-8b06595a9704a1f8ec32b03280d1c3a6e40f04d0f1f6c23da_640x360.jpg" alt="Video 4" onclick="window.open('https://vimeo.com/368910870', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/368910870', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/368910870', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847553238-d1d2b38f8358c7c8b4e3282f99a31839f2f7274725b841a27_640x360.jpg" alt="Video 5" onclick="window.open('https://vimeo.com/388890847', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388890847', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388890847', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847554153-9c9d43e3b88f169ce19ff0bc75e2bc7836c49d3f0427f1375_640x360.jpg" alt="Video 6" onclick="window.open('https://vimeo.com/388891762', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388891762', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388891762', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847557491-4c0f7e0d7cae5bf1f29c3576c3d8b85a6f3c3c8928c0eee7d_640x360.jpg" alt="Video 7" onclick="window.open('https://vimeo.com/388895100', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388895100', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388895100', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847557551-2f07ad0fd39d0ac8f76b70eaa4cc1f1a9a4d9bc83526b4813_640x360.jpg" alt="Video 8" onclick="window.open('https://vimeo.com/388895160', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388895160', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388895160', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/847558321-3a20711e42c5dd54e807b01571c2f6b2f5f0623eaf0c705af_640x360.jpg" alt="Video 9" onclick="window.open('https://vimeo.com/388895930', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/388895930', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/388895930', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="motion-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('motion')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Motion Graphics</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/823568507-a1c8e7dde417c0ea07ea0d11c4d318e8c3f8663d8f0690c7f_640x360.jpg" alt="Motion Graphic 1" onclick="window.open('https://vimeo.com/368906916', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/368906916', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/368906916', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/823571881-a9e3b99f145e85c0dbdb606685c25e64f2521eca6d8d13608_640x360.jpg" alt="Motion Graphic 2" onclick="window.open('https://vimeo.com/368909240', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/368909240', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/368909240', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/824728862-8e0a09026163537e3da17b05c4e2b7a5e08bd9f885e987fdf_640x360.jpg" alt="Motion Graphic 3" onclick="window.open('https://vimeo.com/370066205', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/370066205', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/370066205', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://i.vimeocdn.com/video/824729562-a6ca009d86e1a3b5e1e2c93b7e69e5e2e5652d4a6d06c3712_640x360.jpg" alt="Motion Graphic 4" onclick="window.open('https://vimeo.com/370066905', '_blank')">
+                    <div class="play-button" onclick="window.open('https://vimeo.com/370066905', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://vimeo.com/370066905', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="designs-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('designs')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Designs</h1>
+            <div class="gallery-grid">
+                <!-- 1-8 -->
+                <div class="gallery-item" onclick="openLightbox('designs/1.jpg')">
+                    <img src="designs/1.jpg" alt="Design 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/2.jpg')">
+                    <img src="designs/2.jpg" alt="Design 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/3.jpg')">
+                    <img src="designs/3.jpg" alt="Design 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/4.jpg')">
+                    <img src="designs/4.jpg" alt="Design 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/5.jpg')">
+                    <img src="designs/5.jpg" alt="Design 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/6.jpg')">
+                    <img src="designs/6.jpg" alt="Design 6">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/7.jpg')">
+                    <img src="designs/7.jpg" alt="Design 7">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/8.jpg')">
+                    <img src="designs/8.jpg" alt="Design 8">
+                </div>
+                <!-- Skip 9 and continue from 10-31 -->
+                <div class="gallery-item" onclick="openLightbox('designs/10.jpg')">
+                    <img src="designs/10.jpg" alt="Design 10">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/11.jpg')">
+                    <img src="designs/11.jpg" alt="Design 11">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/12.jpg')">
+                    <img src="designs/12.jpg" alt="Design 12">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/13.jpg')">
+                    <img src="designs/13.jpg" alt="Design 13">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/14.jpg')">
+                    <img src="designs/14.jpg" alt="Design 14">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/15.jpg')">
+                    <img src="designs/15.jpg" alt="Design 15">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/16.jpg')">
+                    <img src="designs/16.jpg" alt="Design 16">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/17.jpg')">
+                    <img src="designs/17.jpg" alt="Design 17">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/18.jpg')">
+                    <img src="designs/18.jpg" alt="Design 18">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/19.jpg')">
+                    <img src="designs/19.jpg" alt="Design 19">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/20.jpg')">
+                    <img src="designs/20.jpg" alt="Design 20">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/21.jpg')">
+                    <img src="designs/21.jpg" alt="Design 21">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/22.jpg')">
+                    <img src="designs/22.jpg" alt="Design 22">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/23.jpg')">
+                    <img src="designs/23.jpg" alt="Design 23">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/24.jpg')">
+                    <img src="designs/24.jpg" alt="Design 24">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/25.jpg')">
+                    <img src="designs/25.jpg" alt="Design 25">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/26.jpg')">
+                    <img src="designs/26.jpg" alt="Design 26">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/27.jpeg')">
+                    <img src="designs/27.jpeg" alt="Design 27">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/28.jpeg')">
+                    <img src="designs/28.jpeg" alt="Design 28">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/29.jpeg')">
+                    <img src="designs/29.jpeg" alt="Design 29">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/30.jpeg')">
+                    <img src="designs/30.jpeg" alt="Design 30">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/31.jpeg')">
+                    <img src="designs/31.jpeg" alt="Design 31">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/33.jpg')">
+                    <img src="designs/33.jpg" alt="Design 33">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/34.jpg')">
+                    <img src="designs/34.jpg" alt="Design 34">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/35.jpg')">
+                    <img src="designs/35.jpg" alt="Design 35">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/36.jpg')">
+                    <img src="designs/36.jpg" alt="Design 36">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/37.jpg')">
+                    <img src="designs/37.jpg" alt="Design 37">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/38.jpg')">
+                    <img src="designs/38.jpg" alt="Design 38">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('designs/39.jpg')">
+                    <img src="designs/39.jpg" alt="Design 39">
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="logo-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('logo')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Logo</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('logos/1.jpg')">
+                    <img src="logos/1.jpg" alt="Logo 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/2.jpg')">
+                    <img src="logos/2.jpg" alt="Logo 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/3.jpg')">
+                    <img src="logos/3.jpg" alt="Logo 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/4.jpg')">
+                    <img src="logos/4.jpg" alt="Logo 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/5.jpg')">
+                    <img src="logos/5.jpg" alt="Logo 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/6.png')">
+                    <img src="logos/6.png" alt="Logo 6">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/7.jpg')">
+                    <img src="logos/7.jpg" alt="Logo 7">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/8.jpg')">
+                    <img src="logos/8.jpg" alt="Logo 8">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/9.jpg')">
+                    <img src="logos/9.jpg" alt="Logo 9">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/10.jpg')">
+                    <img src="logos/10.jpg" alt="Logo 10">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/11.jpg')">
+                    <img src="logos/11.jpg" alt="Logo 11">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/12.jpg')">
+                    <img src="logos/12.jpg" alt="Logo 12">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/13.jpg')">
+                    <img src="logos/13.jpg" alt="Logo 13">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/14.jpg')">
+                    <img src="logos/14.jpg" alt="Logo 14">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/15.jpg')">
+                    <img src="logos/15.jpg" alt="Logo 15">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/16.jpg')">
+                    <img src="logos/16.jpg" alt="Logo 16">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/17.jpg')">
+                    <img src="logos/17.jpg" alt="Logo 17">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/18.jpg')">
+                    <img src="logos/18.jpg" alt="Logo 18">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/19.jpg')">
+                    <img src="logos/19.jpg" alt="Logo 19">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/20.jpg')">
+                    <img src="logos/20.jpg" alt="Logo 20">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/21.jpg')">
+                    <img src="logos/21.jpg" alt="Logo 21">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/22.jpg')">
+                    <img src="logos/22.jpg" alt="Logo 22">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/23.jpg')">
+                    <img src="logos/23.jpg" alt="Logo 23">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/24.jpg')">
+                    <img src="logos/24.jpg" alt="Logo 24">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/25.jpg')">
+                    <img src="logos/25.jpg" alt="Logo 25">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/26.jpg')">
+                    <img src="logos/26.jpg" alt="Logo 26">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/27.jpg')">
+                    <img src="logos/27.jpg" alt="Logo 27">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/28.jpg')">
+                    <img src="logos/28.jpg" alt="Logo 28">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('logos/11.jpeg')">
+                    <img src="logos/11.jpeg" alt="Logo 11">
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="slogan-food-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('slogan-food')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Slogan Food</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('slogan/1.jpg')">
+                    <img src="slogan/1.jpg" alt="Slogan Food 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('slogan/2.jpg')">
+                    <img src="slogan/2.jpg" alt="Slogan Food 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('slogan/3.jpg')">
+                    <img src="slogan/3.jpg" alt="Slogan Food 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('slogan/4.jpeg')">
+                    <img src="slogan/4.jpeg" alt="Slogan Food 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('slogan/5.jpeg')">
+                    <img src="slogan/5.jpeg" alt="Slogan Food 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('slogan/6.jpeg')">
+                    <img src="slogan/6.jpeg" alt="Slogan Food 6">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('slogan/7.jpg')">
+                    <img src="slogan/7.jpg" alt="Slogan Food 7">
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="oud-section" class="page-section">
-        <!-- Similar structure -->
+        <button class="back-button" onclick="hideSection('oud')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Perfumes/Oud</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('oud/1.jpg')">
+                    <img src="oud/1.jpg" alt="Oud 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('oud/2.jpg')">
+                    <img src="oud/2.jpg" alt="Oud 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('oud/3.jpg')">
+                    <img src="oud/3.jpg" alt="Oud 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('oud/4.jpg')">
+                    <img src="oud/4.jpg" alt="Oud 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Then add the Hotels section -->
+    <section id="hotels-section" class="page-section">
+        <button class="back-button" onclick="hideSection('hotels')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Hotels</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('hotels/1.jpg')">
+                    <img src="hotels/1.jpg" alt="Hotel 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/2.jpg')">
+                    <img src="hotels/2.jpg" alt="Hotel 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/3.jpg')">
+                    <img src="hotels/3.jpg" alt="Hotel 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/4.jpeg')">
+                    <img src="hotels/4.jpeg" alt="Hotel 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/5.jpg')">
+                    <img src="hotels/5.jpg" alt="Hotel 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/6.jpg')">
+                    <img src="hotels/6.jpg" alt="Hotel 6">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/7.jpg')">
+                    <img src="hotels/7.jpg" alt="Hotel 7">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/8.jpg')">
+                    <img src="hotels/8.jpg" alt="Hotel 8">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/9.jpg')">
+                    <img src="hotels/9.jpg" alt="Hotel 9">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('hotels/10.jpg')">
+                    <img src="hotels/10.jpg" alt="Hotel 10">
+                </div>
+            </div>
+        </div>
     </section>
 
     <div id="copyNotification" class="copy-success">
@@ -2141,6 +2946,87 @@
                     <div class="timeline-content">
                         <h3>Establishing Excellence</h3>
                         <p>With a commitment to quality, we quickly gained recognition in the industry. Our ability to execute larger-scale events, including corporate gatherings and community festivals, solidified our reputation for delivering exceptional experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services-section" class="page-section">
+        <button class="back-button" onclick="hideSection('services')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Our Services</h1>
+            <div class="services-belt-container">
+                <div class="services-belt">
+                    <!-- Original items -->
+                    <div class="service-item">
+                        <h2>Marketing</h2>
+                        <p>Our team develops end-to-end marketing strategies that boost your brand's visibility and engagement. From campaign ideation to execution, we create content that resonates with your target audience and drives measurable results.</p>
+                        <ul>
+                            <li>Design tailored marketing campaigns</li>
+                            <li>Create engaging multimedia content</li>
+                            <li>Execute and manage campaign strategies</li>
+                            <li>Boost brand visibility and engagement</li>
+                            <li>Analyze performance for improvements</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h2>Cinematography</h2>
+                        <p>We bring your stories to life with stunning visuals and cinematic techniques. From event coverage to promotional videos, our cinematography team ensures every project is visually captivating and emotionally impactful.</p>
+                        <ul>
+                            <li>Plan and capture stunning visuals</li>
+                            <li>Film events, promotions, and stories</li>
+                            <li>Use advanced techniques like drone shots</li>
+                            <li>Edit and color-grade for quality results</li>
+                            <li>Bring creative visions to life</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h2>Commercial Production</h2>
+                        <p>We craft compelling commercials tailored to your brand's identity, delivering high-quality content for TV, digital platforms, and social media. Each production is designed to capture attention and leave a lasting impression on your audience.</p>
+                        <ul>
+                            <li>Produce brand-specific commercials</li>
+                            <li>Handle scripting, filming, and editing</li>
+                            <li>Create content for TV, digital, and social media</li>
+                            <li>Use advanced equipment and techniques</li>
+                            <li>Deliver high-quality, platform-ready ads</li>
+                        </ul>
+                    </div>
+                    <!-- Duplicate items for seamless loop -->
+                    <div class="service-item">
+                        <h2>Marketing</h2>
+                        <p>Our team develops end-to-end marketing strategies that boost your brand's visibility and engagement. From campaign ideation to execution, we create content that resonates with your target audience and drives measurable results.</p>
+                        <ul>
+                            <li>Design tailored marketing campaigns</li>
+                            <li>Create engaging multimedia content</li>
+                            <li>Execute and manage campaign strategies</li>
+                            <li>Boost brand visibility and engagement</li>
+                            <li>Analyze performance for improvements</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h2>Cinematography</h2>
+                        <p>We bring your stories to life with stunning visuals and cinematic techniques. From event coverage to promotional videos, our cinematography team ensures every project is visually captivating and emotionally impactful.</p>
+                        <ul>
+                            <li>Plan and capture stunning visuals</li>
+                            <li>Film events, promotions, and stories</li>
+                            <li>Use advanced techniques like drone shots</li>
+                            <li>Edit and color-grade for quality results</li>
+                            <li>Bring creative visions to life</li>
+                        </ul>
+                    </div>
+                    <div class="service-item">
+                        <h2>Commercial Production</h2>
+                        <p>We craft compelling commercials tailored to your brand's identity, delivering high-quality content for TV, digital platforms, and social media. Each production is designed to capture attention and leave a lasting impression on your audience.</p>
+                        <ul>
+                            <li>Produce brand-specific commercials</li>
+                            <li>Handle scripting, filming, and editing</li>
+                            <li>Create content for TV, digital, and social media</li>
+                            <li>Use advanced equipment and techniques</li>
+                            <li>Deliver high-quality, platform-ready ads</li>
+                        </ul>
                     </div>
                 </div>
             </div>
