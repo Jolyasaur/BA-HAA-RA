@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بحارة</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Three.js and Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            color: #ffffff;
+            background-color: #000000;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #background {
+            position: fixed;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            margin-top: 2rem !important;
+        }
+
+        .site-title {
+            text-align: center;
+            color: #ffffff;
+            font-size: 8rem;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .site-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            margin-top: -1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .portfolio-icons {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            margin: 0 auto;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1400px;
+        }
+
+        .icon-card {
+            width: 120px;
+            height: 120px;
+            text-align: center;
+            padding: 1rem 0.8rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 20px;
+            border: 1px solid rgba(255, 255, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 5px rgba(255, 255, 0, 0.1);
+        }
+
+        .icon-card:hover {
+            transform: translateY(-5px);
+            background: rgba(103, 48, 146, 0.1);
+            border-color: rgba(255, 255, 0, 0.8);
+            box-shadow: 
+                0 5px 15px rgba(255, 255, 0, 0.2),
+                0 0 10px rgba(255, 255, 0, 0.1),
+                inset 0 0 5px rgba(255, 255, 0, 0.1);
+        }
+
+        .icon-card i {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .icon-card:hover i {
+            color: #ffffff;
+            transform: scale(1.1);
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+        }
+
+        .icon-card h3 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            margin: 0;
+            line-height: 1.2;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            transition: all 0.3s ease;
+        }
+
+        .icon-card:hover h3 {
+            color: #ffffff;
+        }
+
+        .contact-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 0.7rem 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(103, 48, 146, 0.5);
+            border-radius: 5px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            box-shadow: 
+                0 0 10px rgba(103, 48, 146, 0.2),
+                inset 0 0 5px rgba(103, 48, 146, 0.2);
+            clip-path: polygon(
+                8px 0,
+                calc(100% - 8px) 0,
+                100% 8px,
+                100% calc(100% - 8px),
+                calc(100% - 8px) 100%,
+                8px 100%,
+                0 calc(100% - 8px),
+                0 8px
+            );
+        }
+
+        .contact-button:hover {
+            transform: translateY(-5px);
+            background: rgba(103, 48, 146, 0.2);
+            border-color: rgba(103, 48, 146, 0.8);
+            color: white;
+            box-shadow: 
+                0 0 15px rgba(103, 48, 146, 0.4),
+                0 0 30px rgba(103, 48, 146, 0.2),
+                inset 0 0 10px rgba(103, 48, 146, 0.3);
+        }
+
+        .contact-button i {
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            border: 1px solid rgba(103, 48, 146, 0.5);
+            border-radius: 5px;
+            width: 90%;
+            max-width: 500px;
+            clip-path: polygon(
+                20px 0,
+                calc(100% - 20px) 0,
+                100% 20px,
+                100% calc(100% - 20px),
+                calc(100% - 20px) 100%,
+                20px 100%,
+                0 calc(100% - 20px),
+                0 20px
+            );
+            box-shadow: 
+                0 0 30px rgba(103, 48, 146, 0.3),
+                inset 0 0 20px rgba(103, 48, 146, 0.2);
+        }
+
+        .contact-info {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(103, 48, 146, 0.1);
+            border: 1px solid rgba(103, 48, 146, 0.3);
+            border-radius: 5px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: rgba(103, 48, 146, 1);
+        }
+
+        .modal h2 {
+            color: rgba(103, 48, 146, 1);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .gallery-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 2rem;
+            border: 1px solid rgba(103, 48, 146, 0.5);
+            clip-path: polygon(
+                20px 0,
+                calc(100% - 20px) 0,
+                100% 20px,
+                100% calc(100% - 20px),
+                calc(100% - 20px) 100%,
+                20px 100%,
+                0 calc(100% - 20px),
+                0 20px
+            );
+            box-shadow: 
+                0 0 30px rgba(103, 48, 146, 0.3),
+                inset 0 0 20px rgba(103, 48, 146, 0.2);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            border: 1px solid rgba(103, 48, 146, 0.3);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:hover {
+            border-color: rgba(103, 48, 146, 0.8);
+            box-shadow: 0 0 20px rgba(103, 48, 146, 0.4);
+        }
+
+        .gallery-title {
+            color: rgba(103, 48, 146, 1);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .gallery-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .gallery-close:hover {
+            color: rgba(103, 48, 146, 1);
+        }
+
+        .page-section {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .page-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 0.7rem 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(103, 48, 146, 0.5);
+            border-radius: 5px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1002;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            background: rgba(103, 48, 146, 0.2);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            border: 1px solid rgba(103, 48, 146, 0.3);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-top: 3rem;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            cursor: pointer;
+        }
+
+        .lightbox img {
+            max-width: 95%;
+            max-height: 95vh;
+            margin: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+            border: 1px solid rgba(103, 48, 146, 0.3);
+            box-shadow: 0 0 30px rgba(103, 48, 146, 0.3);
+        }
+
+        /* Add close button for lightbox */
+        .lightbox-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 2001;
+            width: 40px;
+            height: 40px;
+            background: rgba(103, 48, 146, 0.3);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(103, 48, 146, 0.6);
+        }
+
+        .video-item {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(103, 48, 146, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-button i {
+            color: white;
+            font-size: 24px;
+            margin-left: 4px; /* Offset slightly for play icon */
+        }
+
+        .video-item:hover .play-button {
+            background: rgba(103, 48, 146, 1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .copy-link-btn {
+            background: rgba(103, 48, 146, 0.8);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-link-btn:hover {
+            background: rgba(103, 48, 146, 1);
+            transform: scale(1.05);
+        }
+
+        .copy-success {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(103, 48, 146, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 2000;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Enhanced page section transition */
+        .page-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .page-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive category title */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: 3rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-top: 3rem;
+            overflow: hidden;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-violet), transparent);
+            animation: titleLine 1.5s ease forwards;
+        }
+
+        @keyframes titleLine {
+            to { width: 100%; }
+        }
+
+        /* Enhanced back button */
+        .back-button {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.5s ease 0.3s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Gallery items animation */
+        .gallery-grid {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s ease 0.5s forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Gallery item hover effect */
+        .gallery-item {
+            position: relative;
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="text-center">
+    <canvas id="background"></canvas>
+    
+    <div class="container mt-5">
+        <h1 class="site-title">بحارة</h1>
+        <div class="site-subtitle">BA-HAA-RA</div>
+        <div class="portfolio-icons">
+            <!-- Advertisements -->
+            <div class="icon-card" onclick="showSection('advertisements')">
+                <i class="fas fa-ad"></i>
+                <h3>Advertisements</h3>
+            </div>
+
+            <!-- Product and Food Photography -->
+            <div class="icon-card" onclick="showSection('photography')">
+                <i class="fas fa-camera"></i>
+                <h3>Product and Food Photography</h3>
+            </div>
+
+            <!-- Saudi Games -->
+            <div class="icon-card" onclick="showSection('games')">
+                <i class="fas fa-gamepad"></i>
+                <h3>Saudi Games</h3>
+            </div>
+
+            <!-- Grintafy -->
+            <div class="icon-card" onclick="showSection('grintafy')">
+                <i class="fas fa-futbol"></i>
+                <h3>Grintafy</h3>
+            </div>
+
+            <!-- Perfumes -->
+            <div class="icon-card" onclick="showSection('perfumes')">
+                <i class="fas fa-spray-can"></i>
+                <h3>Perfumes</h3>
+            </div>
+
+            <!-- Meals -->
+            <div class="icon-card" onclick="showSection('meals')">
+                <i class="fas fa-utensils"></i>
+                <h3>Meals</h3>
+            </div>
+
+            <!-- Videos -->
+            <div class="icon-card" onclick="showSection('videos')">
+                <i class="fas fa-video"></i>
+                <h3>Videos</h3>
+            </div>
+
+            <!-- Motion Graphic -->
+            <div class="icon-card" onclick="showSection('motion')">
+                <i class="fas fa-film"></i>
+                <h3>Motion Graphic</h3>
+            </div>
+
+            <!-- Designs -->
+            <div class="icon-card" onclick="showSection('designs')">
+                <i class="fas fa-palette"></i>
+                <h3>Designs</h3>
+            </div>
+
+            <!-- Logo -->
+            <div class="icon-card" onclick="showSection('logo')">
+                <i class="fas fa-vector-square"></i>
+                <h3>Logo</h3>
+            </div>
+
+            <!-- Slogan Food -->
+            <div class="icon-card" onclick="showSection('slogan-food')">
+                <i class="fas fa-hamburger"></i>
+                <h3>Slogan Food</h3>
+            </div>
+
+            <!-- AUD | Oud -->
+            <div class="icon-card" onclick="showSection('oud')">
+                <i class="fas fa-music"></i>
+                <h3>AUD | Oud</h3>
+            </div>
+        </div>
+        <a onclick="openModal()" class="contact-button">
+            <i class="fas fa-envelope"></i>
+            Contact Us
+        </a>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">&times;</button>
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> Email: info@bahara.com</p>
+                <p><i class="fas fa-phone"></i> Phone: +966 123 456 789</p>
+                <p><i class="fas fa-map-marker-alt"></i> Location: Riyadh, Saudi Arabia</p>
+            </div>
+            <div class="contact-info">
+                <p><i class="fab fa-twitter"></i> Twitter: @bahara</p>
+                <p><i class="fab fa-instagram"></i> Instagram: @bahara_official</p>
+                <p><i class="fab fa-linkedin"></i> LinkedIn: Bahara Company</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="photography-section" class="page-section">
+        <button class="back-button" onclick="hideSection('photography')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Product and Food Photography</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openLightbox('img/jar.jpg')">
+                    <img src="img/jar.jpg" alt="Product Photo 1">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('img/cake.jpg')">
+                    <img src="img/cake.jpg" alt="Product Photo 2">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('img/coffee.jpg')">
+                    <img src="img/coffee.jpg" alt="Product Photo 3">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('img/food.jpg')">
+                    <img src="img/food.jpg" alt="Product Photo 4">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('img/food2.jpg')">
+                    <img src="img/food2.jpg" alt="Product Photo 5">
+                </div>
+                <div class="gallery-item" onclick="openLightbox('img/juice.jpg')">
+                    <img src="img/juice.jpg" alt="Product Photo 6">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="Lightbox image" onclick="event.stopPropagation()">
+    </div>
+
+    <section id="advertisements-section" class="page-section">
+        <button class="back-button" onclick="hideSection('advertisements')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Advertisements</h1>
+            <div class="gallery-grid">
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/KzHfXxBZ2Ec/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/KzHfXxBZ2Ec', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/KzHfXxBZ2Ec', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/KzHfXxBZ2Ec', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/rYMieZiqHc0/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/rYMieZiqHc0', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/rYMieZiqHc0', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/rYMieZiqHc0', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/jBSXhA8rVIE/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/jBSXhA8rVIE', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/jBSXhA8rVIE', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/jBSXhA8rVIE', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/c6sHT1sAdwo/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/c6sHT1sAdwo', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/c6sHT1sAdwo', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/c6sHT1sAdwo', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/HxGBjyvjqOU/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/HxGBjyvjqOU', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/HxGBjyvjqOU', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/HxGBjyvjqOU', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/YZ-Z5f2PyWA/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/YZ-Z5f2PyWA', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/YZ-Z5f2PyWA', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/YZ-Z5f2PyWA', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/SIN5a4wuKKA/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/SIN5a4wuKKA', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/SIN5a4wuKKA', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/SIN5a4wuKKA', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/4KQebc1hg50/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/4KQebc1hg50', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/4KQebc1hg50', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/4KQebc1hg50', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/IyHhWFIecc8/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/IyHhWFIecc8', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/IyHhWFIecc8', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/IyHhWFIecc8', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-item video-item">
+                    <img src="https://img.youtube.com/vi/t7UAkZ1osyo/maxresdefault.jpg" alt="Advertisement Video" onclick="window.open('https://youtu.be/t7UAkZ1osyo', '_blank')">
+                    <div class="play-button" onclick="window.open('https://youtu.be/t7UAkZ1osyo', '_blank')">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-controls">
+                        <button class="copy-link-btn" onclick="copyVideoLink('https://youtu.be/t7UAkZ1osyo', event)">
+                            <i class="fas fa-link"></i>
+                            Copy Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="games-section" class="page-section">
+        <button class="back-button" onclick="hideSection('games')">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <div class="page-content">
+            <h1 class="section-title">Saudi Games</h1>
+            <div class="gallery-grid">
+                <!-- Add your games images here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="grintafy-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="perfumes-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="meals-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="videos-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="motion-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="designs-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="logo-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="slogan-food-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <section id="oud-section" class="page-section">
+        <!-- Similar structure -->
+    </section>
+
+    <div id="copyNotification" class="copy-success">
+        Link copied to clipboard!
+    </div>
+
+    <script>
+        App({
+            el: 'background',
+            // Slightly more lively configuration
+            ambientColor: 0x000000,
+            light1Color: 0x673092,    // Primary violet
+            light2Color: 0x9d34db,    // Bright violet
+            light3Color: 0x8A2BE2,    // BlueViolet
+            light4Color: 0xFFD700,    // Subtle yellow accent
+            lightIntensity: 0.7,      // Slightly increased from 0.6
+            xyCoef: 35,              // Reduced for more movement
+            zCoef: 12,               // Increased for more height variation
+            fov: 75,
+            cameraZ: 75,
+            lightSpeed: 1.2,         // Slightly increased speed
+            waveSpeed: 0.0007        // Slightly increased wave speed
+        });
+
+        function App(conf) {
+            conf = {
+                fov: 75,
+                cameraZ: 75,
+                xyCoef: 35,
+                zCoef: 12,
+                lightIntensity: 0.7,
+                ambientColor: 0x000000,
+                light1Color: 0x673092,
+                light2Color: 0x9d34db,
+                light3Color: 0x8A2BE2,
+                light4Color: 0xFFD700,
+                lightSpeed: 1.2,
+                waveSpeed: 0.0007,
+                ...conf
+            };
+
+            let renderer, scene, camera, cameraCtrl;
+            let width, height, cx, cy, wWidth, wHeight;
+            const TMath = THREE.Math;
+
+            let plane;
+            const simplex = new SimplexNoise();
+
+            const mouse = new THREE.Vector2();
+            const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+            const mousePosition = new THREE.Vector3();
+            const raycaster = new THREE.Raycaster();
+
+            init();
+
+            function init() {
+                renderer = new THREE.WebGLRenderer({ canvas: document.getElementById(conf.el), antialias: true, alpha: true });
+                camera = new THREE.PerspectiveCamera(conf.fov);
+                camera.position.z = conf.cameraZ;
+
+                updateSize();
+                window.addEventListener('resize', updateSize, false);
+
+                document.addEventListener('mousemove', e => {
+                    const v = new THREE.Vector3();
+                    camera.getWorldDirection(v);
+                    v.normalize();
+                    mousePlane.normal = v;
+                    mouse.x = (e.clientX / width) * 2 - 1;
+                    mouse.y = -(e.clientY / height) * 2 + 1;
+                    raycaster.setFromCamera(mouse, camera);
+                    raycaster.ray.intersectPlane(mousePlane, mousePosition);
+                });
+
+                initScene();
+                animate();
+            }
+
+            function initScene() {
+                scene = new THREE.Scene();
+                initLights();
+
+                let mat = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+                let geo = new THREE.PlaneBufferGeometry(wWidth, wHeight, wWidth / 2, wHeight / 2);
+                plane = new THREE.Mesh(geo, mat);
+                scene.add(plane);
+
+                plane.rotation.x = -Math.PI / 2 - 0.2;
+                plane.position.y = -25;
+                camera.position.z = 60;
+            }
+
+            function initLights() {
+                const r = 30;
+                const y = 10;
+                const lightDistance = 500;
+
+                light1 = new THREE.PointLight(conf.light1Color, conf.lightIntensity, lightDistance);
+                light1.position.set(0, y, r);
+                scene.add(light1);
+                light2 = new THREE.PointLight(conf.light2Color, conf.lightIntensity, lightDistance);
+                light2.position.set(0, -y, -r);
+                scene.add(light2);
+                light3 = new THREE.PointLight(conf.light3Color, conf.lightIntensity, lightDistance);
+                light3.position.set(r, y, 0);
+                scene.add(light3);
+                light4 = new THREE.PointLight(conf.light4Color, conf.lightIntensity, lightDistance);
+                light4.position.set(-r, y, 0);
+                scene.add(light4);
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                animatePlane();
+                animateLights();
+
+                renderer.render(scene, camera);
+            }
+
+            function animatePlane() {
+                gArray = plane.geometry.attributes.position.array;
+                const time = Date.now() * 0.0002;
+                for (let i = 0; i < gArray.length; i += 3) {
+                    gArray[i + 2] = simplex.noise4D(gArray[i] / conf.xyCoef, gArray[i + 1] / conf.xyCoef, time, mouse.x + mouse.y) * conf.zCoef;
+                }
+                plane.geometry.attributes.position.needsUpdate = true;
+            }
+
+            function animateLights() {
+                const time = Date.now() * 0.0005; // Reduced from 0.001
+                const d = 50;
+                light1.position.x = Math.sin(time * 0.1) * d;
+                light1.position.z = Math.cos(time * 0.2) * d;
+                light2.position.x = Math.cos(time * 0.3) * d;
+                light2.position.z = Math.sin(time * 0.4) * d;
+                light3.position.x = Math.sin(time * 0.5) * d;
+                light3.position.z = Math.sin(time * 0.6) * d;
+                light4.position.x = Math.sin(time * 0.7) * d;
+                light4.position.z = Math.cos(time * 0.8) * d;
+            }
+
+            function updateSize() {
+                width = window.innerWidth; cx = width / 2;
+                height = window.innerHeight; cy = height / 2;
+                if (renderer && camera) {
+                    renderer.setSize(width, height);
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                    const wsize = getRendererSize();
+                    wWidth = wsize[0];
+                    wHeight = wsize[1];
+                }
+            }
+
+            function getRendererSize() {
+                const cam = new THREE.PerspectiveCamera(camera.fov, camera.aspect);
+                const vFOV = cam.fov * Math.PI / 180;
+                const height = 2 * Math.tan(vFOV / 2) * Math.abs(conf.cameraZ);
+                const width = height * cam.aspect;
+                return [width, height];
+            }
+        }
+
+        function openModal() {
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        function showSection(sectionId) {
+            const section = document.getElementById(sectionId + '-section');
+            section.style.display = 'block';
+            // Add active class after a small delay to trigger animation
+            setTimeout(() => {
+                section.classList.add('active');
+            }, 50);
+            document.body.style.overflow = 'hidden';
+
+            // Add interactive hover effect to gallery items
+            const items = section.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                item.addEventListener('mousemove', handleHover);
+                item.addEventListener('mouseleave', resetHover);
+            });
+        }
+
+        function hideSection(sectionId) {
+            const section = document.getElementById(sectionId + '-section');
+            section.classList.remove('active');
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                section.style.display = 'none';
+            }, 500);
+            document.body.style.overflow = 'auto';
+        }
+
+        // Add these new functions
+        function handleHover(e) {
+            const item = e.currentTarget;
+            const rect = item.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+
+            item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        }
+
+        function resetHover(e) {
+            const item = e.currentTarget;
+            item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        }
+
+        // Add scroll reveal for gallery items
+        function revealOnScroll() {
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        // Listen for section changes
+        const sections = document.querySelectorAll('.page-section');
+        sections.forEach(section => {
+            section.addEventListener('scroll', () => {
+                requestAnimationFrame(revealOnScroll);
+            });
+        });
+
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imgSrc;
+            lightbox.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        function copyVideoLink(link, event) {
+            event.stopPropagation(); // Prevent video from opening when clicking copy button
+            navigator.clipboard.writeText(link).then(() => {
+                const notification = document.getElementById('copyNotification');
+                notification.style.display = 'block';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+
+    
