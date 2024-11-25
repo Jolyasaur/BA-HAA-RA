@@ -619,7 +619,7 @@
             top: 20px;
             right: 20px;
             color: white;
-            font-size: 30px;
+            font-size: 24px; /* Reduced from 30px */
             cursor: pointer;
             z-index: 2001;
             width: 40px;
@@ -631,10 +631,33 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            padding: 0; /* Added to prevent padding issues */
+            line-height: 1; /* Added to ensure vertical centering */
         }
 
-        .lightbox-close:hover {
-            background: rgba(103, 48, 146, 0.6);
+        /* Add mobile responsiveness for lightbox close button */
+        @media (max-width: 768px) {
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+                width: 36px; /* Slightly smaller on mobile */
+                height: 36px; /* Keep width and height equal */
+                font-size: 20px; /* Slightly smaller font size */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Add extra small screen adjustments */
+        @media (max-width: 480px) {
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+                width: 32px; /* Even smaller for very small screens */
+                height: 32px; /* Keep width and height equal */
+                font-size: 18px;
+            }
         }
 
         .video-item {
@@ -2892,21 +2915,21 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="img/team1.jpg" alt="Fares Al-Qahtani">
+                        <img src="team/1.jfif" alt="Fares Al-Qahtani">
                     </div>
                     <h3>Fares Al-Qahtani</h3>
                     <p class="position">Owner / Director</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="img/team2.jpg" alt="Mohammed Essam">
+                        <img src="team/2.jfif" alt="Mohammed Essam">
                     </div>
                     <h3>Mohammed Essam</h3>
                     <p class="position">Producer</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="img/team3.jpg" alt="Sinthia Mohammed">
+                        <img src="team/3.jfif" alt="Sinthia Mohammed">
                     </div>
                     <h3>Sinthia Mohammed</h3>
                     <p class="position">Administrative Coordinator</p>
