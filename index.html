@@ -22,6 +22,8 @@
             margin: 0;
             overflow-x: hidden;
             overflow-y: auto;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
@@ -39,6 +41,8 @@
             left: 0;
             width: 100%;
             height: 100%;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
         }
 
         .container {
@@ -46,6 +50,8 @@
             z-index: 1;
             margin-top: 2rem !important;
             padding-bottom: 4rem;
+            overflow: visible;
+            width: 100%;
         }
 
         .site-title {
@@ -54,6 +60,8 @@
             font-size: 8rem;
             margin-bottom: 2rem;
             font-weight: bold;
+            opacity: 0;
+            animation: fadeSlideIn 0.8s ease forwards;
         }
 
         .site-subtitle {
@@ -64,6 +72,8 @@
             margin-top: -1rem;
             font-weight: 400;
             letter-spacing: 3px;
+            opacity: 0;
+            animation: fadeSlideIn 0.8s ease 0.2s forwards;
         }
 
         .portfolio-icons {
@@ -76,8 +86,10 @@
             gap: 1rem;
             flex-wrap: wrap;
             max-width: 1400px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            opacity: 0;
+            animation: fadeSlideIn 0.8s ease 0.4s forwards;
+            position: relative;
+            overflow: visible;
         }
 
         .icon-card {
@@ -97,6 +109,12 @@
             align-items: center;
             position: relative;
             box-shadow: 0 0 10px rgba(103, 48, 146, 0.2);
+            opacity: 0;
+            animation: fadeSlideIn 0.5s ease forwards;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform-style: preserve-3d;
         }
 
         .icon-card:hover {
@@ -161,6 +179,8 @@
                 0 0 0 3px rgba(103, 48, 146, 0.2);
             z-index: 1000;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            opacity: 0;
+            animation: fadeSlideIn 0.8s ease 1.6s forwards;
         }
 
         .contact-button:hover {
@@ -810,449 +830,8 @@
             z-index: 1000;
             display: flex;
             justify-content: flex-end;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            border-radius: 4px;
-        }
-
-        .nav-link:hover {
-            color: #ffffff;
-            background: rgba(103, 48, 146, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Adjust container top margin to account for navbar */
-        .container {
-            margin-top: 5rem !important;
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0.8rem 1rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .about-content p {
-                text-align: left !important;
-                word-spacing: normal !important;
-                hyphens: none !important;
-                text-align-last: left !important;
-            }
-        }
-
-        /* Update the section title styles */
-        .section-title {
-            font-size: 3rem;
-            color: white;
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-top: 3rem;
-        }
-
-        /* Add this to your existing media query for mobile devices */
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2rem; /* Reduced from 3rem */
-                padding-top: 2rem; /* Slightly reduced top padding */
-                margin-bottom: 1.5rem; /* Slightly reduced bottom margin */
-            }
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .team-description {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            padding: 0 1rem;
-        }
-
-        .team-description p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
-            line-height: 1.8;
-            text-align: center;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .team-member {
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .member-image {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 1.5rem;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid rgba(103, 48, 146, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .member-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.3s ease;
-        }
-
-        .team-member:hover .member-image {
-            border-color: rgba(103, 48, 146, 1);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(103, 48, 146, 0.3);
-        }
-
-        .team-member h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .team-member .position {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-        }
-
-        /* Add mobile responsiveness for team section */
-        @media (max-width: 768px) {
-            .team-description p {
-                font-size: 1rem;
-                padding: 0 1rem;
-            }
-
-            .team-grid {
-                gap: 2rem;
-                padding: 0 1rem;
-            }
-
-            .member-image {
-                width: 150px;
-                height: 150px;
-            }
-
-            .team-member h3 {
-                font-size: 1.2rem;
-            }
-        }
-
-        .goals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .goal-card {
-            background: rgba(103, 48, 146, 0.1);
-            border: 2px solid rgba(103, 48, 146, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .goal-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(103, 48, 146, 0.8);
-            box-shadow: 
-                0 5px 15px rgba(103, 48, 146, 0.3),
-                0 0 20px rgba(103, 48, 146, 0.2);
-            background: rgba(103, 48, 146, 0.15);
-        }
-
-        .goal-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(103, 48, 146, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .goal-icon i {
-            font-size: 2rem;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .goal-card:hover .goal-icon {
-            background: rgba(103, 48, 146, 0.4);
-            transform: scale(1.1);
-        }
-
-        .goal-card:hover .goal-icon i {
-            transform: rotate(360deg);
-        }
-
-        .goal-card h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .goal-card p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        /* Add mobile responsiveness for goals section */
-        @media (max-width: 768px) {
-            .goals-grid {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-                gap: 1.5rem;
-            }
-
-            .goal-card {
-                padding: 1.5rem;
-            }
-
-            .goal-icon {
-                width: 60px;
-                height: 60px;
-            }
-
-            .goal-icon i {
-                font-size: 1.5rem;
-            }
-
-            .goal-card h3 {
-                font-size: 1.3rem;
-            }
-
-            .goal-card p {
-                font-size: 0.9rem;
-            }
-        }
-
-        .timeline {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 2px;
-            height: 100%;
-            background: rgba(103, 48, 146, 0.3);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 4rem;
-            position: relative;
-        }
-
-        .timeline-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(103, 48, 146, 0.2);
-            border: 2px solid rgba(103, 48, 146, 0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-icon i {
-            font-size: 1.5rem;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content {
-            width: calc(50% - 50px);
-            padding: 2rem;
-            background: rgba(103, 48, 146, 0.1);
-            border: 2px solid rgba(103, 48, 146, 0.3);
-            border-radius: 15px;
-            position: relative;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-right: 50%;
-            margin-left: 30px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-left: 50%;
-            margin-right: 30px;
-        }
-
-        .timeline-content h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .timeline-content p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-
-        /* Hover effects */
-        .timeline-item:hover .timeline-icon {
-            background: rgba(103, 48, 146, 0.4);
-            transform: translateX(-50%) scale(1.1);
-            border-color: rgba(103, 48, 146, 0.8);
-            box-shadow: 0 0 20px rgba(103, 48, 146, 0.3);
-        }
-
-        .timeline-item:hover .timeline-icon i {
-            transform: rotate(360deg);
-        }
-
-        .timeline-item:hover .timeline-content {
-            transform: translateY(-5px);
-            border-color: rgba(103, 48, 146, 0.8);
-            box-shadow: 
-                0 5px 15px rgba(103, 48, 146, 0.3),
-                0 0 20px rgba(103, 48, 146, 0.2);
-            background: rgba(103, 48, 146, 0.15);
-        }
-
-        /* Update the mobile responsiveness for journey section */
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 30px;
-            }
-
-            .timeline {
-                padding: 1rem;
-            }
-
-            .timeline-item {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: 3rem; /* Reduced from 4rem */
-            }
-
-            .timeline-icon {
-                left: 30px;
-                transform: translateX(-50%);
-                width: 45px; /* Reduced from 60px */
-                height: 45px; /* Reduced from 60px */
-            }
-
-            .timeline-icon i {
-                font-size: 1.2rem; /* Reduced from 1.5rem */
-            }
-
-            .timeline-content {
-                width: calc(100% - 60px);
-                margin-left: 60px !important;
-                margin-right: 0 !important;
-                padding: 1.2rem; /* Reduced from 2rem */
-            }
-
-            .timeline-content h3 {
-                font-size: 1.2rem; /* Reduced from 1.5rem */
-                margin-bottom: 0.8rem; /* Reduced from 1rem */
-            }
-
-            .timeline-content p {
-                font-size: 0.9rem;
-                line-height: 1.5;
-            }
-
-            .timeline-item:hover .timeline-icon {
-                transform: translateX(-50%) scale(1.1);
-            }
-
-            /* Adjust spacing between timeline items */
-            .timeline-item:last-child {
-                margin-bottom: 1rem;
-            }
-
-            /* Ensure content doesn't overflow on small screens */
-            .timeline-content {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
-        }
-
-        /* Add extra small screen adjustments */
-        @media (max-width: 480px) {
-            .timeline-content {
-                padding: 1rem;
-                margin-left: 50px !important;
-            }
-
-            .timeline::before {
-                left: 25px;
-            }
-
-            .timeline-icon {
-                left: 25px;
-                width: 40px;
-                height: 40px;
-            }
-
-            .timeline-icon i {
-                font-size: 1rem;
-            }
-
-            .timeline-content h3 {
-                font-size: 1.1rem;
-            }
-
-            .timeline-content p {
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Update the navbar structure */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            display: flex;
-            justify-content: flex-end;
+            opacity: 0;
+            animation: fadeSlideIn 0.8s ease 0.2s forwards;
         }
 
         .nav-link {
@@ -1993,6 +1572,81 @@
                 font-size: 0.75rem;
             }
         }
+
+        /* Add these new styles for the fade-in animations */
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                visibility: visible;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                visibility: visible;
+            }
+        }
+
+        /* Add staggered animation delay for each icon card */
+        .portfolio-icons .icon-card:nth-child(1) { animation-delay: 0.4s; }
+        .portfolio-icons .icon-card:nth-child(2) { animation-delay: 0.5s; }
+        .portfolio-icons .icon-card:nth-child(3) { animation-delay: 0.6s; }
+        .portfolio-icons .icon-card:nth-child(4) { animation-delay: 0.7s; }
+        .portfolio-icons .icon-card:nth-child(5) { animation-delay: 0.8s; }
+        .portfolio-icons .icon-card:nth-child(6) { animation-delay: 0.9s; }
+        .portfolio-icons .icon-card:nth-child(7) { animation-delay: 1.0s; }
+        .portfolio-icons .icon-card:nth-child(8) { animation-delay: 1.1s; }
+        .portfolio-icons .icon-card:nth-child(9) { animation-delay: 1.2s; }
+        .portfolio-icons .icon-card:nth-child(10) { animation-delay: 1.3s; }
+        .portfolio-icons .icon-card:nth-child(11) { animation-delay: 1.4s; }
+        .portfolio-icons .icon-card:nth-child(12) { animation-delay: 1.5s; }
+
+        /* Add this to ensure animations only play on page load, not during navigation */
+        .no-animation {
+            animation: none !important;
+            opacity: 1 !important;
+        }
+
+        /* Add these new styles for the contact details */
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-detail p {
+            margin: 0;
+        }
+
+        .copy-contact-small {
+            background: rgba(103, 48, 146, 0.3);
+            border: 1px solid rgba(103, 48, 146, 0.5);
+            color: white;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .copy-contact-small:hover {
+            background: rgba(103, 48, 146, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Update mobile styles */
+        @media (max-width: 768px) {
+            .copy-contact-small {
+                padding: 0.25rem 0.4rem;
+                font-size: 0.8rem;
+            }
+            
+            .contact-detail {
+                gap: 0.4rem;
+            }
+        }
     </style>
 </head>
 <body class="text-center">
@@ -2088,10 +1742,10 @@
                 <h3>Slogan Food</h3>
             </div>
 
-            <!-- AUD | Oud -->
+            <!-- Perfumes/Oud -->
             <div class="icon-card" onclick="showSection('oud')">
-                <i class="fas fa-music"></i>
-                <h3>AUD | Oud</h3>
+                <i class="fas fa-spray-can"></i>
+                <h3>Perfumes/Oud</h3>
             </div>
         </div>
         <a onclick="openModal()" class="contact-button">
@@ -2110,10 +1764,12 @@
                         <i class="fas fa-envelope"></i>
                     </div>
                     <h3>Email Us</h3>
-                    <p>info@bahara.com</p>
-                    <button class="copy-contact" onclick="copyContact('info@bahara.com')">
-                        <i class="fas fa-copy"></i> Copy
-                    </button>
+                    <div class="contact-detail">
+                        <p>bahaara.sa1@gmail.com</p>
+                        <button class="copy-contact-small" onclick="copyContact('bahaara.sa1@gmail.com')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="contact-card">
@@ -2121,34 +1777,19 @@
                         <i class="fas fa-phone"></i>
                     </div>
                     <h3>Call Us</h3>
-                    <p>+966 123 456 789</p>
-                    <button class="copy-contact" onclick="copyContact('+966123456789')">
-                        <i class="fas fa-copy"></i> Copy
-                    </button>
-                </div>
-
-                <div class="contact-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+                    <div class="contact-detail">
+                        <p>+966 54 959 9977</p>
+                        <button class="copy-contact-small" onclick="copyContact('+966549599977')">
+                            <i class="fas fa-copy"></i>
+                        </button>
                     </div>
-                    <h3>Visit Us</h3>
-                    <p>Riyadh, Saudi Arabia</p>
-                    <button class="open-maps" onclick="openMaps()">
-                        <i class="fas fa-location-arrow"></i> Open Maps
-                    </button>
+                    <div class="contact-detail">
+                        <p>+966 56 229 5254</p>
+                        <button class="copy-contact-small" onclick="copyContact('+966562295254')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-
-            <div class="social-links">
-                <a href="https://twitter.com/bahara" target="_blank" class="social-link">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="https://instagram.com/bahara_official" target="_blank" class="social-link">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://linkedin.com/company/bahara" target="_blank" class="social-link">
-                    <i class="fab fa-linkedin"></i>
-                </a>
             </div>
         </div>
     </div>
@@ -2846,6 +2487,38 @@
                     closeMobileMenu();
                 }
             });
+        });
+    </script>
+
+    <!-- Add this to your existing JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for initial animations to complete
+            setTimeout(() => {
+                document.querySelectorAll('.site-title, .site-subtitle, .portfolio-icons, .icon-card, .contact-button, .navbar, #background')
+                    .forEach(element => {
+                        element.classList.add('no-animation');
+                    });
+            }, 2000); // Adjust time based on your longest animation duration
+        });
+
+        // Add this to handle browser back/forward cache
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                // Page was restored from back/forward cache
+                document.querySelectorAll('.site-title, .site-subtitle, .portfolio-icons, .icon-card, .contact-button, .navbar, #background')
+                    .forEach(element => {
+                        element.classList.add('no-animation');
+                    });
+            }
+        });
+    </script>
+
+    <script>
+        // Add this right after opening body tag
+        document.body.classList.add('js-loading');
+        window.addEventListener('load', () => {
+            document.body.classList.remove('js-loading');
         });
     </script>
 </body>
