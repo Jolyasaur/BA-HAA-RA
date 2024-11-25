@@ -20,7 +20,8 @@
         html, body {
             height: 100%;
             margin: 0;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         body {
@@ -44,6 +45,7 @@
             position: relative;
             z-index: 1;
             margin-top: 2rem !important;
+            padding-bottom: 4rem;
         }
 
         .site-title {
@@ -71,9 +73,11 @@
             align-items: center;
             padding: 1rem;
             margin: 0 auto;
-            gap: 2rem;
+            gap: 1rem;
             flex-wrap: wrap;
             max-width: 1400px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .icon-card {
@@ -349,7 +353,8 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
-            overflow-y: auto;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
             padding: 2rem;
         }
 
@@ -622,6 +627,26 @@
         .gallery-item:hover {
             transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
             z-index: 1;
+        }
+
+        /* Add media query for mobile devices */
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 4rem;
+            }
+
+            .icon-card {
+                margin: 0 10px;
+            }
+
+            .page-section {
+                padding: 1rem;
+            }
+
+            .gallery-grid {
+                gap: 1rem;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
